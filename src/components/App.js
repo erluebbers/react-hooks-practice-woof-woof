@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Filter from "./Filter"
+import DogBar from "./DogBar"
+import DogSummary from "./DogSummary"
 
 function App() {
+  const [pups, setPups] = useState([])
+  const [targetPup, setTargetPup] = useState({})
+
+  useEffect(() => {
+    fetch("http://localhost:3001/pups")
+      .then(r => r.json())
+      .then(data => setPups(data))
+  }, [])
+
   return (
     <div className="App">
-      <div id="filter-div">
-        <button id="good-dog-filter">Filter good dogs: OFF</button>
-      </div>
-      <div id="dog-bar"></div>
-      <div id="dog-summary-container">
-        <h1>DOGGO:</h1>
-        <div id="dog-info"></div>
-      </div>
+      <Filter />
+      <DogBar pups={pups} setTargetPup={setTargetPup}/>
+      <DogSummary targetPup={targetPup} setPups={setPups}/>
     </div>
   );
 }
