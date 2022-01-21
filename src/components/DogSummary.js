@@ -1,6 +1,6 @@
 import React from "react";
 
-function DogSummary( {targetPup, setPups} ) {
+function DogSummary( {targetPup, handleClick} ) {
   const { id, name, isGoodDog, image } = targetPup
 
   function toggleGood() {
@@ -11,7 +11,7 @@ function DogSummary( {targetPup, setPups} ) {
     })
     fetch("http://localhost:3001/pups")
       .then(r => r.json())
-      .then(data => setPups(data))
+      .then(data => handleClick(data))
   }
 
   return (
@@ -20,7 +20,7 @@ function DogSummary( {targetPup, setPups} ) {
         <div id="dog-info">
           <img src={image} alt={name}/>
           <h2>{name}</h2>
-          {targetPup === {} ? null : <button onClick={toggleGood}>{isGoodDog ? "Good Dog!" : "Bad Dog!"}</button>}
+          {Object.keys(targetPup).length === 0 ? null : <button onClick={toggleGood}>{isGoodDog ? "Good Dog!" : "Bad Dog!"}</button>}
         </div>
       </div>
   );

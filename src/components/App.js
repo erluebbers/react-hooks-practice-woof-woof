@@ -7,6 +7,12 @@ function App() {
   const [pups, setPups] = useState([])
   const [targetPup, setTargetPup] = useState({})
 
+  function handleClick(data) {
+    console.log(data)
+    setPups(data)
+    console.log(pups)
+  }
+
   useEffect(() => {
     fetch("http://localhost:3001/pups")
       .then(r => r.json())
@@ -17,7 +23,7 @@ function App() {
     <div className="App">
       <Filter />
       <DogBar pups={pups} setTargetPup={setTargetPup}/>
-      <DogSummary targetPup={targetPup} setPups={setPups}/>
+      <DogSummary targetPup={targetPup} handleClick={handleClick}/>
     </div>
   );
 }
